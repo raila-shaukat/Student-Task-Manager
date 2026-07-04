@@ -1,3 +1,4 @@
+console.log("App Started");
 const express = require("express");
 const path = require("path");
 
