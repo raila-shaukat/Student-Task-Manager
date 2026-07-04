@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>All Tasks</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <h1>All Tasks</h1>
+
+    <% if(tasks.length===0){ %>
+
+        <p>No Tasks Available</p>
+
+    <% } else { %>
+
+        <ul>
+
+        <% tasks.forEach(task=>{ %>
+
+            <li><%= task.title %></li>
+
+        <% }) %>
+
+        </ul>
+
+    <% } %>
+
+    <br>
+
+    <a href="/">Home</a>
+
+</body>
+
+</html>
