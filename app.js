@@ -1,11 +1,18 @@
 const express = require("express");
 
 const app = express();
+const path = require("path");
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 const PORT = 3000;
 
 app.get("/", (req, res) => {
-    res.send("<h1>Student Task Manager</h1>");
+    res.render("index");
 });
 
 app.get("/about", (req, res) => {
