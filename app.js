@@ -8,6 +8,10 @@ app.get("/", (req, res) => {
     res.send("<h1>Student Task Manager</h1>");
 });
 
+app.get("/about", (req, res) => {
+    res.send("<h1>About Page</h1>");
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
