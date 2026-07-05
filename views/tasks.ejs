@@ -15,12 +15,49 @@
     </h1>
 
     <div class="text-center mb-4">
-
         <a href="/tasks/new" class="btn btn-success">
             Add New Task
         </a>
-
     </div>
+
+    <form action="/tasks" method="GET" class="mb-5">
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                class="form-control"
+                name="search"
+                placeholder="Search Tasks">
+
+            <select name="priority" class="form-select" style="max-width:200px;">
+
+        <option value="">All Priorities</option>
+
+        <option value="High">High</option>
+
+        <option value="Medium">Medium</option>
+
+        <option value="Low">Low</option>
+
+</select>
+<select name="status" class="form-select" style="max-width:200px;">
+
+    <option value="">All Status</option>
+
+    <option value="Pending">Pending</option>
+
+    <option value="Completed">Completed</option>
+
+</select>
+
+            <button class="btn btn-primary">
+                Search
+            </button>
+
+        </div>
+
+    </form>
 
     <% if(tasks.length === 0){ %>
 

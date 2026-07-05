@@ -9,10 +9,37 @@ exports.home = (req, res) => {
 // View All Tasks
 exports.getTasks = (req, res) => {
 
-    console.log("===== GET TASKS =====");
-    console.log(tasks);
+    const search = req.query.search || "";
+    const priority = req.query.priority || "";
+    const status = req.query.status || "";
 
-    res.render("tasks", { tasks });
+    let filteredTasks = tasks;
+
+    if (search) {
+        filteredTasks = filteredTasks.filter(task =>
+            task.title.toLowerCase().includes(search.toLowerCase())
+        );
+    }
+
+    if (priority) {
+        filteredTasks = filteredTasks.filter(task =>
+            task.priority === priority
+        );
+    }
+
+    if (status) {
+        filteredTasks = filteredTasks.filter(task =>
+            task.status === status
+        );
+    }
+
+    res.render("tasks", {
+        tasks: filteredTasks,
+        search,
+        priority,
+        status
+    });
+
 };
 
 // Show Add Task Form
