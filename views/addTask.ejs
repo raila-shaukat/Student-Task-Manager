@@ -18,35 +18,72 @@
 
     <form action="/tasks" method="POST">
 
-        <div class="mb-3">
-            <label class="form-label">Task Title</label>
+    <div class="mb-3">
+        <label class="form-label">Task Title</label>
+        <input
+            type="text"
+            class="form-control"
+            name="title"
+            required>
+    </div>
 
-            <input
-                type="text"
-                class="form-control"
-                name="title"
-                required>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea
+            class="form-control"
+            name="description"
+            rows="4"
+            required></textarea>
+    </div>
 
-        <div class="mb-3">
-            <label class="form-label">Description</label>
+    <div class="mb-3">
+        <label class="form-label">Due Date</label>
+        <input
+            type="date"
+            class="form-control"
+            name="dueDate"
+            required>
+    </div>
 
-            <textarea
-                class="form-control"
-                name="description"
-                rows="4"
-                required></textarea>
-        </div>
+    <div class="mb-3">
+        <label class="form-label">Priority</label>
 
-        <button class="btn btn-success">
-            Save Task
-        </button>
+        <select
+            class="form-select"
+            name="priority"
+            required>
 
-        <a href="/tasks" class="btn btn-secondary">
-            Back
-        </a>
+            <option value="">Select Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
 
-    </form>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+
+        <select
+            class="form-select"
+            name="status"
+            required>
+
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+
+        </select>
+    </div>
+
+    <button class="btn btn-success">
+        Save Task
+    </button>
+
+    <a href="/tasks" class="btn btn-secondary">
+        Back
+    </a>
+
+</form>
 
 </div>
 

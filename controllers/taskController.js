@@ -23,16 +23,27 @@ exports.showAddTask = (req, res) => {
 // Save Task
 exports.addTask = (req, res) => {
 
-    const { title, description } = req.body;
+    const {
+        title,
+        description,
+        dueDate,
+        priority,
+        status
+    } = req.body;
 
     console.log("===== BEFORE PUSH =====");
     console.log(tasks);
     console.log("Length Before:", tasks.length);
 
     tasks.push({
-        id: Date.now(),
-        title,
-        description
+        
+    id: Date.now(),
+    title,
+    description,
+    dueDate,
+    priority,
+    status
+
     });
 
     console.log("===== AFTER PUSH =====");
@@ -61,13 +72,19 @@ exports.updateTask = (req, res) => {
     const task = tasks.find(task => task.id === id);
 
     if (task) {
+
         task.title = req.body.title;
         task.description = req.body.description;
+        task.dueDate = req.body.dueDate;
+        task.priority = req.body.priority;
+        task.status = req.body.status;
+
     }
 
     res.redirect("/tasks");
 
 };
+
 
 // Delete Task
 exports.deleteTask = (req, res) => {
