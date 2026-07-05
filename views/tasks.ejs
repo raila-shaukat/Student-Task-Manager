@@ -10,50 +10,92 @@
 
 <div class="container mt-5">
 
-    <h1 class="text-center mb-4">
-        All Tasks
-    </h1>
+    <h1 class="text-center mb-4">All Tasks</h1>
 
+    <!-- Dashboard -->
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm border-primary">
+                <div class="card-body">
+                    <h5>Total Tasks</h5>
+                    <h2 class="text-primary"><%= totalTasks %></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm border-warning">
+                <div class="card-body">
+                    <h5>Pending Tasks</h5>
+                    <h2 class="text-warning"><%= pendingTasks %></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm border-success">
+                <div class="card-body">
+                    <h5>Completed Tasks</h5>
+                    <h2 class="text-success"><%= completedTasks %></h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Add Button -->
     <div class="text-center mb-4">
         <a href="/tasks/new" class="btn btn-success">
             Add New Task
         </a>
     </div>
 
-    <form action="/tasks" method="GET" class="mb-5">
+    <!-- Search & Filter -->
+    <form action="/tasks" method="GET" class="mb-4">
 
-        <div class="input-group">
+        <div class="row g-2">
 
-            <input
-                type="text"
-                class="form-control"
-                name="search"
-                placeholder="Search Tasks">
+            <div class="col-md-3">
+                <input
+                    type="text"
+                    name="search"
+                    class="form-control"
+                    value="<%= search || '' %>"
+                    placeholder="Search Tasks">
+            </div>
 
-            <select name="priority" class="form-select" style="max-width:200px;">
+            <div class="col-md-2">
+                <select name="priority" class="form-select">
+                    <option value="">All Priorities</option>
+                    <option value="High" <%= priority==="High" ? "selected":"" %>>High</option>
+                    <option value="Medium" <%= priority==="Medium" ? "selected":"" %>>Medium</option>
+                    <option value="Low" <%= priority==="Low" ? "selected":"" %>>Low</option>
+                </select>
+            </div>
 
-        <option value="">All Priorities</option>
+            <div class="col-md-2">
+                <select name="status" class="form-select">
+                    <option value="">All Status</option>
+                    <option value="Pending" <%= status==="Pending" ? "selected":"" %>>Pending</option>
+                    <option value="Completed" <%= status==="Completed" ? "selected":"" %>>Completed</option>
+                </select>
+            </div>
 
-        <option value="High">High</option>
+            <div class="col-md-2">
+                <select name="sort" class="form-select">
+                    <option value="">Sort By</option>
+                    <option value="title">Title (A-Z)</option>
+                    <option value="priority">Priority</option>
+                    <option value="date">Due Date</option>
+                </select>
+            </div>
 
-        <option value="Medium">Medium</option>
-
-        <option value="Low">Low</option>
-
-</select>
-<select name="status" class="form-select" style="max-width:200px;">
-
-    <option value="">All Status</option>
-
-    <option value="Pending">Pending</option>
-
-    <option value="Completed">Completed</option>
-
-</select>
-
-            <button class="btn btn-primary">
-                Search
-            </button>
+            <div class="col-md-3">
+                <button class="btn btn-primary w-100">
+                    Search / Apply
+                </button>
+            </div>
 
         </div>
 
@@ -61,77 +103,82 @@
 
     <% if(tasks.length === 0){ %>
 
-        <p>No Tasks Available</p>
+        <div class="alert alert-warning">
+            No Tasks Found.
+        </div>
 
     <% } else { %>
 
         <% tasks.forEach(task => { %>
 
-            <div class="card mb-3">
+            <div class="card shadow-sm mb-4">
 
                 <div class="card-body">
 
-                    <div class="card shadow-sm p-3 mx-auto mb-4" style="max-width:700px;">
+                    <h3><%= task.title %></h3>
 
-    <div class="card-body">
+                    <p><%= task.description %></p>
 
-        <h3 class="card-title">
-            <%= task.title %>
-        </h3>
+                    <p>
+                        <strong>📅 Due Date:</strong>
+                        <%= new Date(task.dueDate).toLocaleDateString() %>
+                    </p>
 
-        <p class="card-text">
-            <%= task.description %>
-        </p>
+                    <p>
 
-        <p>
-            <strong>📅 Due Date:</strong>
-            <%= task.dueDate %>
-        </p>
+                        <strong>🚩 Priority:</strong>
 
-        <p>
+                        <% if(task.priority === "High"){ %>
 
-<strong>🚩 Priority:</strong>
+                            <span class="badge bg-danger">High</span>
 
-<% if(task.priority === "High"){ %>
+                        <% } else if(task.priority === "Medium"){ %>
 
-<span class="badge bg-danger">High</span>
+                            <span class="badge bg-warning text-dark">Medium</span>
 
-<% } else if(task.priority === "Medium"){ %>
+                        <% } else { %>
 
-<span class="badge bg-warning text-dark">Medium</span>
+                            <span class="badge bg-success">Low</span>
 
-<% } else { %>
+                        <% } %>
 
-<span class="badge bg-success">Low</span>
+                    </p>
 
-<% } %>
+                    <p>
+                        <strong>📌 Status:</strong>
+                        <%= task.status %>
+                    </p>
 
-</p>
+                    <!-- Buttons -->
 
-        <p>
-            <strong>📌 Status:</strong>
-            <%= task.status %>
-        </p>
+                    <a href="/tasks/edit/<%= task._id %>"
+                       class="btn btn-primary btn-sm">
+                        Edit
+                    </a>
 
-        <a href="/tasks/edit/<%= task.id %>" class="btn btn-primary btn-sm">
-            Edit
-        </a>
+                    <form action="/tasks/delete/<%= task._id %>"
+                          method="POST"
+                          style="display:inline;">
 
-        <form action="/tasks/delete/<%= task.id %>"
-              method="POST"
-              style="display:inline;">
-
-            <button class="btn btn-danger btn-sm">
-                Delete
-            </button>
-
-        </form>
-
-    </div>
-
-</div>
+                        <button class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
 
                     </form>
+
+                    <% if(task.status === "Pending"){ %>
+
+                    <form action="/tasks/complete/<%= task._id %>"
+                          method="POST"
+                          style="display:inline;">
+
+                        <button class="btn btn-success btn-sm">
+                            ✓ Complete
+                        </button>
+
+                    </form>
+
+                    <% } %>
 
                 </div>
 
