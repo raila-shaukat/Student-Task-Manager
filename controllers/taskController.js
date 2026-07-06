@@ -113,13 +113,15 @@ exports.addTask = async (req, res) => {
         // Validation
         if (!title || !description || !dueDate || !priority || !status) {
 
-            return res.send("All fields are required.");
+            req.flash("error", "All fields are required.");
+            return res.redirect("/tasks/new");
 
         }
 
         if (description.length < 10) {
 
-            return res.send("Description must be at least 10 characters.");
+            req.flash("error", "Description must be at least 10 characters.");
+            return res.redirect("/tasks/new");
 
         }
 
@@ -128,7 +130,8 @@ exports.addTask = async (req, res) => {
 
         if (new Date(dueDate) < today) {
 
-            return res.send("Due date cannot be in the past.");
+            req.flash("error", "Due date cannot be in the past.");
+            return res.redirect("/tasks/new");
 
         }
 
@@ -140,12 +143,14 @@ exports.addTask = async (req, res) => {
             status
         });
 
+        req.flash("success", "Task added successfully.");
         res.redirect("/tasks");
 
     } catch (error) {
 
         console.log(error);
-        res.send("Error Adding Task");
+        req.flash("error", "Something went wrong.");
+        res.redirect("/tasks/new");
 
     }
 
@@ -184,6 +189,7 @@ exports.updateTask = async (req, res) => {
 
         });
 
+        req.flash("success", "Task updated successfully.");
         res.redirect("/tasks");
 
     } catch (error) {
@@ -202,6 +208,7 @@ exports.deleteTask = async (req, res) => {
 
         await Task.findByIdAndDelete(req.params.id);
 
+        req.flash("success", "Task deleted successfully.");
         res.redirect("/tasks");
 
     } catch (error) {
@@ -222,6 +229,7 @@ exports.completeTask = async (req, res) => {
             status: "Completed"
         });
 
+        req.flash("success", "Task marked as completed.");
         res.redirect("/tasks");
 
     } catch (error) {
