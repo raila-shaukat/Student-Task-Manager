@@ -18,7 +18,7 @@
 
     <h1 class="mb-4">Edit Task</h1>
 
-    <form action="/tasks/update/<%= task.id %>" method="POST">
+    <form action="/tasks/update/<%= task._id %>" method="POST">
 
         <div class="mb-3">
             <label class="form-label">Task Title</label>
@@ -48,7 +48,7 @@
                 type="date"
                 class="form-control"
                 name="dueDate"
-                value="<%= task.dueDate %>"
+                value="<%= task.dueDate ? task.dueDate.toISOString().split('T')[0] : '' %>"
                 required>
         </div>
 
