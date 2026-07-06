@@ -104,7 +104,7 @@ Screenshots of the application can be added here.
   ![Home page](screenshots/Homepage.png)
   
 - Task Dashboard
-- ![Task Dashboard](screenshots/Taskdashboard.png)
+ ![Task Dashboard](screenshots/Taskdashboard.png)
   
 - Add Task
   ![Add Task](screenshots/Addtask.png)
