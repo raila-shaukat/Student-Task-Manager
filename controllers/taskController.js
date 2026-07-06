@@ -97,6 +97,7 @@ exports.showAddTask = (req, res) => {
 };
 
 // Save Task
+console.log("addTask function called");
 exports.addTask = async (req, res) => {
 
     try {
@@ -108,6 +109,28 @@ exports.addTask = async (req, res) => {
             priority,
             status
         } = req.body;
+
+        // Validation
+        if (!title || !description || !dueDate || !priority || !status) {
+
+            return res.send("All fields are required.");
+
+        }
+
+        if (description.length < 10) {
+
+            return res.send("Description must be at least 10 characters.");
+
+        }
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (new Date(dueDate) < today) {
+
+            return res.send("Due date cannot be in the past.");
+
+        }
 
         await Task.create({
             title,
