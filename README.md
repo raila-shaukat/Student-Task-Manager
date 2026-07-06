@@ -101,12 +101,15 @@ http://localhost:3000
 Screenshots of the application can be added here.
 
 - Home Page
-- Add Task
+  ![Home page](screenshots/Homepage.png)
 - Task Dashboard
+- ![Task Dashboard](screenshots/Taskdashboard.png)
+- Add Task
+  ![Add Task](screenshots/Addtask.png)
 - Edit Task
-- Search & Filter
+  ![Edit Task](screenshots/EditTask.png)
 - 404 Page
-
+![404 page](screenshots/404Page.png)
 ---
 
 ## 🌟 Future Improvements
